@@ -1,9 +1,12 @@
 package com.example.it526.controller;
 
 import com.example.it526.dto.EmployeeDto;
+import com.example.it526.entity.Employee;
 import com.example.it526.service.EmployeeService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -22,17 +25,24 @@ public class EmployeeController {
     }
 
     @GetMapping
-    private List<EmployeeDto> getEmployees(
-            @RequestParam(name = "page", defaultValue = "0", required = false) int page,
-            @RequestParam(name = "size", defaultValue = "10") int size,
-            @RequestParam(name = "sort", defaultValue = "id,asc") String sort
+    private Page<Employee> getEmployees(
+            Pageable pageable
     ) {
+        Page<Employee> employeeList = employeeService.getAllEmployees(pageable) ;
+
+        return employeeList;
+
 //        return employeeService.getAllEmployees();
-        return List.of(
-                new EmployeeDto(1L, "Meftaul", "Haque"),
-                new EmployeeDto(2L, "John", "Doe"),
-                new EmployeeDto(3L, "Jane", "Smith")
-        );
+//        return List.of(
+//                new EmployeeDto(1L, "Meftaul", "Haque"),
+//                new EmployeeDto(2L, "John", "Doe"),
+//                new EmployeeDto(3L, "Jane", "Smith")
+//        );
+//       List<Employee> employeeList = employeeService.getAllEmployees() ;
+//       if (employeeList.isEmpty()) {
+//           return List.of();
+//           return employeeList ;
+       }
     }
 
     @GetMapping("/{employeeId}")

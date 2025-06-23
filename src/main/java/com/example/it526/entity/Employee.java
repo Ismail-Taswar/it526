@@ -26,7 +26,7 @@ public class Employee {
     @Transient
     private Long age ;
 
-    @ManyToMany
+    @ManyToOne
     @JoinColumn(
             name = "department_id",
             foreignKey = @ForeignKey(name = "FK_EMPLOYEE_DEPARTMENT")
@@ -35,13 +35,11 @@ public class Employee {
 
     public Employee() {}
 
-    public Employee(Long employeeId,
-                    String firstName,
+    public Employee(String firstName,
                     String lastName,
                     String email,
                     String phone,
                     String address) {
-        this.employeeId = employeeId;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
